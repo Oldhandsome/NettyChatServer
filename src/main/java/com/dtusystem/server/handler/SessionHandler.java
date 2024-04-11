@@ -28,7 +28,7 @@ public class SessionHandler extends SimpleChannelInboundHandler<NetworkMsg> {
         String username = session.getUsername(ctx.channel());
         if (verify(msg.getMessage()) && username == null) {
             NetworkMsg networkMsg = new NetworkMsg(msg.getId(), new Response<>(false, "请登录", null));
-            ctx.write(networkMsg);
+            ctx.writeAndFlush(networkMsg);
             return;
         }
         ctx.fireChannelRead(msg);
